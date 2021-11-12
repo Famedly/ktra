@@ -284,7 +284,7 @@ fn normal_merge(
         return repository.checkout_index(Some(&mut index), None);
     }
 
-    let oid = index.write_tree_to(&repository)?;
+    let oid = index.write_tree_to(repository)?;
     let result_tree = repository.find_tree(oid)?;
 
     let message = format!("Merge: {} into {}", remote_commit.id(), local_commit.id());

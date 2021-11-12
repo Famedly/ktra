@@ -1,7 +1,7 @@
 use semver::Version;
 use serde::Serialize;
-use thiserror::Error;
 use std::io;
+use thiserror::Error;
 
 #[derive(Debug, Clone, Serialize)]
 struct ErrorMessage {
@@ -153,7 +153,7 @@ impl Error {
             Error::InvalidToken(_) | Error::InvalidUser(_) => warp::http::StatusCode::FORBIDDEN,
             _ => warp::http::StatusCode::OK,
         };
-        let json = warp::reply::json(&ErrorMessage::new(&[ApiError::from_error(&self)]));
+        let json = warp::reply::json(&ErrorMessage::new(&[ApiError::from_error(self)]));
 
         (json, status_code)
     }

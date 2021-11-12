@@ -16,19 +16,19 @@ pub struct MetadataDependency {
     pub explicit_name_in_toml: Option<String>,
 }
 
-impl Into<Dependency> for MetadataDependency {
-    #[tracing::instrument(skip(self))]
-    fn into(self) -> Dependency {
-        Dependency {
-            name: self.name,
-            req: self.version_req,
-            features: self.features,
-            optional: self.optional,
-            default_features: self.default_features,
-            target: self.target,
-            kind: self.kind,
-            registry: self.registry,
-            package: self.explicit_name_in_toml,
+impl From<MetadataDependency> for Dependency {
+    #[tracing::instrument(skip(dep))]
+    fn from(dep: MetadataDependency) -> Self {
+        Self {
+            name: dep.name,
+            req: dep.version_req,
+            features: dep.features,
+            optional: dep.optional,
+            default_features: dep.default_features,
+            target: dep.target,
+            kind: dep.kind,
+            registry: dep.registry,
+            package: dep.explicit_name_in_toml,
         }
     }
 }

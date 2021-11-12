@@ -1,0 +1,23 @@
+include:
+  - project: 'famedly/company/devops/templates/ci-cd'
+    ref: 'docker-v1'
+    file: '/docker.yml'
+  - project: 'famedly/company/devops/templates/ci-cd'
+    ref: 'rust-v1'
+    file: '/rust.yml'
+
+stages:
+  - test
+  - deploy
+
+cargo_check:
+  extends: .cargo_check
+
+docker_releases:
+  extends: .docker_releases
+
+docker_tags:
+  extends: .docker_tags
+
+docker_branches:
+  extends: .docker_branches

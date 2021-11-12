@@ -55,9 +55,9 @@ impl DbManager for SledDbManager {
 
     #[tracing::instrument(skip(self, user_id, name))]
     async fn can_edit_owners(&self, user_id: u32, name: &str) -> Result<bool, Error> {
-        check_crate_name(&name)?;
+        check_crate_name(name)?;
 
-        let entry = self.entry(&name).await?;
+        let entry = self.entry(name).await?;
 
         if entry.is_empty() {
             Err(Error::CrateNotFoundInDb(name.to_owned()))
@@ -450,7 +450,7 @@ impl SledDbManager {
 
     #[tracing::instrument(skip(self, name, entry))]
     async fn insert_entry<'a>(&self, name: &str, entry: Entry) -> Result<(), Error> {
-        self.insert(normalized_crate_name(&name), entry).await
+        self.insert(normalized_crate_name(name), entry).await
     }
 
     #[tracing::instrument(skip(self, key, value))]
